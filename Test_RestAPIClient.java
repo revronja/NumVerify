@@ -5,22 +5,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.*;
-//import java.util.Scanner;
 
-public class RestAPIClient {
-	 public String number;
-	 public String carrier;
-		
-	
-	//public String setConfig() {
 
-	//Config newconf = new Config();
-	//apikey = newconf.api_key;
-	//return apikey;
+public class Test_RestAPIClient {
+	public String number;
+	public static String carrier;
+	public JSONObject jsonObject;
+	public HttpURLConnection conn = null;
 	
-	//}
 	
-	public HttpURLConnection sendGet(String phonenum) throws Exception{
+	public JSONObject sendGet(String phonenum) throws Exception{
 		
 		Config conf = new Config();
 		String ak = conf.getVirusTotalAPIKey();
@@ -36,6 +30,7 @@ public class RestAPIClient {
 		//reader.close();
 		
 		//url = url + num;
+		try {
 		URL obj = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
 		conn.setRequestMethod("GET");
@@ -65,41 +60,37 @@ public class RestAPIClient {
 		String countrycode = (String) jsonObject.get("country_code");
 	    carrier  = (String) jsonObject.get("carrier");
 		//System.out.println("valid : " + valid);
-		System.out.println("number : " + number);
-		System.out.println("countrycode : " + countrycode);
-		System.out.println("carrier : " + carrier);
+		//System.out.println("number : " + number);
+		//System.out.println("countrycode : " + countrycode);
+		//System.out.println("carrier : " + carrier);
 		 // get an array from the JSON object
 		//JSONArray lang= (JSONArray) jsonObject.get("languages");
-
-
-		return conn;
-		// may want to return response object instead?
+		
+		return jsonObject;
+		}finally {
+	    	conn.disconnect();
+	    }
+	   
 	}
 	
-	
-	//public String setrespCarrier() {
-		//String carrier;
-		//return carrier;
-	//}
 	
 	
 	
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		HttpURLConnection conn = null;
-		
-		try {
-			RestAPIClient client = new RestAPIClient();
-			conn = client.sendGet("14158586273");
+			JSONObject resp;
+			Test_RestAPIClient client = new Test_RestAPIClient();
+			try{
+			     resp = client.sendGet("14158586273");
+				//resp = client.jsonObject;
+			    carrier = (String) resp.get("carrier");
+				System.out.println("carrier : " + carrier);
 			
-		} catch(Exception e) {
-			System.out.println("Exception thrown: " + e);
+		} catch (Exception e) {
+			System.out.println(e + " was thrown.");
 		}
-		finally {
-			conn.disconnect();
-		}
-		
+			
 	}
-
 }
+
+
