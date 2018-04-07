@@ -10,6 +10,9 @@ public class New01 extends JPanel implements ActionListener
 	JTextArea taRemarks;
 	JButton btnIcon;
 	//ImageIcon imgIcon;
+	RestAPIClient newreq = new RestAPIClient();
+	String num = newreq.number;
+	String carrier = newreq.carrier;
 	
 	public New01()
 	{
@@ -35,7 +38,17 @@ public class New01 extends JPanel implements ActionListener
 	{
 		if (actEvt.getSource() == btnIcon)
 		{
-			taRemarks.append("Name: "+txtName.getText()+"\n");			
+			String phonenum = txtName.getText();
+			try {
+				newreq.sendGet(phonenum);
+				// set json object values
+				
+			} catch (Exception e) {
+				System.out.println(e + " Exception thrown.");
+			}
+			//taRemarks.append("Carrier: " + newreq.sendGet(phonenum).Number;)
+			taRemarks.append("Phonenumber verified: "+ num +"\n");
+			taRemarks.append("Carrier: "+ carrier +"\n");	
 		}
 	}
 

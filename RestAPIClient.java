@@ -8,7 +8,8 @@ import org.json.simple.*;
 //import java.util.Scanner;
 
 public class RestAPIClient {
-	
+	 public String number;
+	 public String carrier;
 		
 	
 	//public String setConfig() {
@@ -19,13 +20,14 @@ public class RestAPIClient {
 	
 	//}
 	
-	public HttpURLConnection sendGet() throws Exception{
+	public HttpURLConnection sendGet(String phonenum) throws Exception{
 		
 		Config conf = new Config();
 		String ak = conf.getVirusTotalAPIKey();
 		
 	    String url1 = "http://apilayer.net/api/validate?access_key=";
-		String url2 = "&number=14158586273";
+	    String url2 = "&number=" + phonenum;
+		//String url2 = "&number=14158586273";
 		String url = url1 + ak + url2;
 		
 		//Scanner reader = new Scanner(System.in);
@@ -58,9 +60,10 @@ public class RestAPIClient {
 		JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
 		
 		//String valid = (String) jsonObject.get("valid");
-		String number = (String) jsonObject.get("number");
+		number = (String) jsonObject.get("number");
+		//String number = (String) jsonObject.get("number");
 		String countrycode = (String) jsonObject.get("country_code");
-		String carrier  = (String) jsonObject.get("carrier");
+	    carrier  = (String) jsonObject.get("carrier");
 		//System.out.println("valid : " + valid);
 		System.out.println("number : " + number);
 		System.out.println("countrycode : " + countrycode);
@@ -70,7 +73,17 @@ public class RestAPIClient {
 
 
 		return conn;
+		// may want to return response object instead?
 	}
+	
+	
+	//public String setrespCarrier() {
+		//String carrier;
+		//return carrier;
+	//}
+	
+	
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -78,7 +91,7 @@ public class RestAPIClient {
 		
 		try {
 			RestAPIClient client = new RestAPIClient();
-			conn = client.sendGet();
+			conn = client.sendGet("14158586273");
 		} catch(Exception e) {
 			System.out.println("Exception thrown: " + e);
 		}
