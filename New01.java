@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
-//https://javaproglang.blogspot.com/2014/01/jtextarea-on-jpanel-implements.html#.WseGb2aZPow
-// for jpassworfield https://javaproglang.blogspot.com/2014/01/jtextfield-jpasswordfield-on-jpanel.html#.WseKn2aZPow
+
+// test number is 14158586273
 
 public class New01 extends JPanel implements ActionListener
 {
@@ -10,10 +10,8 @@ public class New01 extends JPanel implements ActionListener
 	JTextArea taRemarks;
 	JButton btnIcon;
 	//ImageIcon imgIcon;
-	RestAPIClient newreq = new RestAPIClient();
-	String num = newreq.number;
-	String carrier = newreq.carrier;
-	
+	Test_RestAPIClient newreq = new Test_RestAPIClient();
+
 	public New01()
 	{
 		setLayout(null);
@@ -41,14 +39,21 @@ public class New01 extends JPanel implements ActionListener
 			String phonenum = txtName.getText();
 			try {
 				newreq.sendGet(phonenum);
-				// set json object values
+				taRemarks.append("Phone number valid: " + newreq.valid + "\n");
+				taRemarks.append("Local format: " + newreq.localformat + "\n");
+				taRemarks.append("International format: " + newreq.intformat + "\n");
+				taRemarks.append("Location: " + newreq.location + "\n");
+				taRemarks.append("Carrier: " + newreq.carrier + "\n");
+				taRemarks.append("Countrycode: " + newreq.countrycode + "\n");
+				taRemarks.append("Linetype: " + newreq.linetype + "\n");
+				
 				
 			} catch (Exception e) {
 				System.out.println(e + " Exception thrown.");
 			}
+			// output can go here ?
 			//taRemarks.append("Carrier: " + newreq.sendGet(phonenum).Number;)
-			taRemarks.append("Phonenumber verified: "+ num +"\n");
-			taRemarks.append("Carrier: "+ carrier +"\n");	
+			
 		}
 	}
 

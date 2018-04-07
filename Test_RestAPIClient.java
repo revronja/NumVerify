@@ -9,7 +9,7 @@ import org.json.simple.*;
 
 public class Test_RestAPIClient {
 	 public static String number;
-	 public static String valid;
+	 public static boolean valid;
 	 public static String localformat;
 	 public static String intformat;
 	 public static String carrier;
@@ -46,7 +46,7 @@ public class Test_RestAPIClient {
 		JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
 
 		 number = (String) jsonObject.get("number");
-		 valid = (String) jsonObject.get("valid");
+		 valid = (boolean) jsonObject.get("valid");
 		 localformat = (String) jsonObject.get("local_format");
 		 intformat = (String) jsonObject.get("international_format");
 		 carrier  = (String) jsonObject.get("carrier");
