@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,12 +9,24 @@ import org.json.simple.*;
 
 public class RestAPIClient {
 	
-	//public void setConfig() {
 		
+	
+	//public String setConfig() {
+
+	//Config newconf = new Config();
+	//apikey = newconf.api_key;
+	//return apikey;
+	
 	//}
 	
 	public HttpURLConnection sendGet() throws Exception{
-	    String url = "http://apilayer.net/api/validate?access_key=""&number=14158586273";
+		
+		Config conf = new Config();
+		String ak = conf.getVirusTotalAPIKey();
+		
+	    String url1 = "http://apilayer.net/api/validate?access_key=";
+		String url2 = "&number=14158586273";
+		String url = url1 + ak + url2;
 		
 		//Scanner reader = new Scanner(System.in);
 		//System.out.println("Enter a phone number: ");
@@ -44,11 +57,11 @@ public class RestAPIClient {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
 		
-		String valid = (String) jsonObject.get("valid");
+		//String valid = (String) jsonObject.get("valid");
 		String number = (String) jsonObject.get("number");
 		String countrycode = (String) jsonObject.get("country_code");
 		String carrier  = (String) jsonObject.get("carrier");
-		System.out.println("valid : " + valid);
+		//System.out.println("valid : " + valid);
 		System.out.println("number : " + number);
 		System.out.println("countrycode : " + countrycode);
 		System.out.println("carrier : " + carrier);
