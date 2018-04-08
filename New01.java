@@ -11,26 +11,33 @@ public class New01 extends JPanel implements ActionListener
 	JButton btnIcon;
 	//ImageIcon imgIcon;
 	Test_RestAPIClient newreq = new Test_RestAPIClient();
+	private JScrollPane scrollPane;
 
 	public New01()
 	{
 		setLayout(null);
 		lblName = new JLabel("Enter number: ");
 		txtName = new JTextField(15);
-		taRemarks = new JTextArea(10,10);
 		btnIcon = new JButton("Verify");
 		btnIcon.addActionListener(this);
 		
 		lblName.setBounds(10,20,120,25);
 		txtName.setBounds(150,20,150,25);
 		btnIcon.setBounds(120,100,150,30);
-		taRemarks.setBounds(30,140,330,100);
 		
 		//Add labels to the Panel.
 		add(lblName);
 		add(txtName);
 		add(btnIcon);
-		add(taRemarks);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(30, 140, 330, 100);
+		add(scrollPane);
+		taRemarks = new JTextArea(10,10);
+		scrollPane.setViewportView(taRemarks);
+	
+		
+		
 	}
 	public void actionPerformed(ActionEvent actEvt)
 	{
